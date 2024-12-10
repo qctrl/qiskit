@@ -649,6 +649,7 @@ fn map_rotation<'a>(
     (op, params, false)
 }
 
+#[pyfunction]
 fn get_relative_placement(
     first_qargs: &[Qubit],
     second_qargs: &[Qubit],
