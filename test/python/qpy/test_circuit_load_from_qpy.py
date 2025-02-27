@@ -268,7 +268,7 @@ class TestVersionArg(QpyCircuitTestCase):
         qc.append(MyParamGate(theta), [0])
         qc.append(MyParamGate(two_theta), [0])
         with io.BytesIO() as qpy_file:
-            dump(qc, qpy_file, version=QPY_COMPATIBILITY_VERSION)
+            dump(qc, qpy_file, version=10)
             qpy_file.seek(0)
             new_circ = load(qpy_file)[0]
         # Custom gate classes are lowered to Gate to avoid arbitrary code
