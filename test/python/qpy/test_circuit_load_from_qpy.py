@@ -14,6 +14,7 @@
 
 import io
 import struct
+import unittest
 
 from ddt import ddt, data
 
@@ -244,6 +245,7 @@ class TestLayout(QpyCircuitTestCase):
 class TestVersionArg(QpyCircuitTestCase):
     """Test explicitly setting a qpy version in dump()."""
 
+    @unittest.skipIf(QPY_COMPATIBILITY_VERSION > 10, "Test only valid for version 10.")
     def test_custom_gate_name_overlap_persists_with_minimum_version(self):
         """Assert the fix in version 11 doesn't get used if an older version is request."""
 
