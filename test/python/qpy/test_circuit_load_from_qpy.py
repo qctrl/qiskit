@@ -375,6 +375,7 @@ class TestVersionArg(QpyCircuitTestCase):
 class TestUseSymengineFlag(QpyCircuitTestCase):
     """Test that the symengine flag works correctly."""
 
+    @unittest.skipIf(QPY_COMPATIBILITY_VERSION > 10, "Test only valid for version 10.")
     def test_use_symengine_with_bool_like(self):
         """Test that the use_symengine flag is set correctly with a bool-like input."""
         theta = Parameter("theta")
