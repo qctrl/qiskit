@@ -39,6 +39,30 @@ impl QubitProperties {
         Self { t1, t2, frequency }
     }
 
+    /// Update existing ``QubitProperties`` fields with new values, if provided.
+    ///
+    /// Args:
+    ///     t1 (Option<f64>): Updated T1 value
+    ///     t2 (Option<f64>): Updated T2 value
+    ///     frequency (Option<f64>): Updated frequency value
+    #[pyo3(signature = (t1=None, t2=None, frequency=None))]
+    pub fn update_qubit_properties(
+        &mut self,
+        t1: Option<f64>,
+        t2: Option<f64>,
+        frequency: Option<f64>,
+    ) {
+        if let Some(val) = t1 {
+            self.t1 = Some(val);
+        }
+        if let Some(val) = t2 {
+            self.t2 = Some(val);
+        }
+        if let Some(val) = frequency {
+            self.frequency = Some(val);
+        }
+    }
+
     fn __getstate__(&self) -> (Option<f64>, Option<f64>, Option<f64>) {
         (self.t1, self.t2, self.frequency)
     }
@@ -91,5 +115,13 @@ mod test {
         assert_eq!(qubit_props.t1, None);
         assert_eq!(qubit_props.t2, None);
         assert_eq!(qubit_props.frequency, None);
+    }
+    #[test]
+    fn test_update_qubit_properties() {
+        let mut qubit_props = QubitProperties::new(Some(100.0), Some(200.0), Some(5.0));
+        qubit_props.update_qubit_properties(Some(150.0), None, Some(6.0));
+        assert_eq!(qubit_props.t1, Some(150.0));
+        assert_eq!(qubit_props.t2, Some(200.0));
+        assert_eq!(qubit_props.frequency, Some(6.0));
     }
 }
